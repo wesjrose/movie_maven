@@ -1,0 +1,85 @@
+# Shared
+.env
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Backend (movie_maven_be)
+# ---------------------------------------------------------------------------
+/movie_maven_be/tmp
+/movie_maven_be/logs
+
+# Binaries for programs and plugins
+/movie_maven_be/**/*.exe
+/movie_maven_be/**/*.exe~
+/movie_maven_be/**/*.dll
+/movie_maven_be/**/*.so
+/movie_maven_be/**/*.dylib
+
+# Test binary, built with `go test -c`
+/movie_maven_be/**/*.test
+
+# Code coverage profiles and other test artifacts
+/movie_maven_be/**/*.out
+/movie_maven_be/**/coverage.*
+/movie_maven_be/**/*.coverprofile
+/movie_maven_be/**/profile.cov
+
+# Dependency directories (remove the comment below to include it)
+# /movie_maven_be/vendor/
+
+# Go workspace file
+/movie_maven_be/**/go.work
+/movie_maven_be/**/go.work.sum
+
+# Editor/IDE
+# /movie_maven_be/.idea/
+# /movie_maven_be/.vscode/
+
+# Custom ignores
+/movie_maven_be/**/debug_*
+# Compiled binary (`go build` output)
+/movie_maven_be/**/movie_maven_be
+
+# ---------------------------------------------------------------------------
+# Frontend (movie_maven_fe)
+# ---------------------------------------------------------------------------
+# Logs
+/movie_maven_fe/**/logs
+/movie_maven_fe/**/*.log
+/movie_maven_fe/**/npm-debug.log*
+/movie_maven_fe/**/yarn-debug.log*
+/movie_maven_fe/**/yarn-error.log*
+/movie_maven_fe/**/pnpm-debug.log*
+/movie_maven_fe/**/lerna-debug.log*
+
+# Dependencies and build output
+/movie_maven_fe/**/node_modules
+/movie_maven_fe/**/dist
+/movie_maven_fe/**/dist-ssr
+
+# Vite / TypeScript caches (also written under node_modules/.vite and node_modules/.tmp)
+/movie_maven_fe/**/*.tsbuildinfo
+
+# Test coverage (Vitest default reporter output)
+/movie_maven_fe/**/coverage
+
+# Env: Vite loads `.env`, `.env.[mode]`, `.env.local`, and `.env.[mode].local`.
+# Shared defaults in `.env` are meant to be committed. Secrets and machine-specific
+# values go in `*.local` files, which this pattern ignores.
+/movie_maven_fe/**/*.local
+
+# Editor directories and files
+/movie_maven_fe/.vscode/*
+!/movie_maven_fe/.vscode/extensions.json
+/movie_maven_fe/**/.idea
+/movie_maven_fe/**/*.suo
+/movie_maven_fe/**/*.ntvs*
+/movie_maven_fe/**/*.njsproj
+/movie_maven_fe/**/*.sln
+/movie_maven_fe/**/*.sw?
+
+# Custom Application Ignore
+/movie_maven_fe/api/*
+/movie_maven_fe/.cursor/*
+/movie_maven_fe/**/AGENTS.md
