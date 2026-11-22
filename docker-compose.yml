@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: movie_maven
+      POSTGRES_PASSWORD: movie_maven
+      POSTGRES_DB: movie_maven_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U movie_maven -d movie_maven_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./movie_maven_be
+    # Supplies TMDB_API_TOKEN. DATABASE_URL below overrides the one in .env,
+    # which points at a Postgres on the host rather than the db service.
+    env_file: ./movie_maven_be/.env
+    environment:
+      DATABASE_URL: postgres://movie_maven:movie_maven@db:5432/movie_maven_db?sslmode=disable
+      LISTEN_ADDR: 0.0.0.0:8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:8001/genres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-shot job: refresh genres and movies released since 2020, then exit.
+  populate:
+    image: curlimages/curl:8.17.0
+    depends_on:
+      backend:
+        condition: service_healthy
+    command:
+      - sh
+      - -c
+      - |
+        set -e
+        curl -fsS http://backend:8001/populate-genres -o /dev/null
+        echo "genres populated"
+        curl -fsS "http://backend:8001/populate-movies-since?year=2020"
+        echo
+    restart: "no"
+
+  frontend:
+    build: ./movie_maven_fe
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  pgdata:

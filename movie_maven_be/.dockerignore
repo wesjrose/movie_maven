@@ -1,0 +1,5 @@
+.env
+tmp
+logs
+debug_*
+movie_maven_be
